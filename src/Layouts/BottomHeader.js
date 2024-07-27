@@ -1,20 +1,93 @@
-import React, {useState} from "react";
-import {LuAlignJustify} from "react-icons/lu";
-import {FaTimes} from "react-icons/fa";
-import {FaUser} from "react-icons/fa";
-import {IoIosArrowForward} from "react-icons/io";
+import React from "react";
+// import {LuAlignJustify} from "react-icons/lu";
+// import {FaTimes, FaUser} from "react-icons/fa";
+// import {IoIosArrowForward} from "react-icons/io";
+import {items} from "../Data";
+import {useLocation} from "react-router-dom";
+import {FaArrowRight, FaGreaterThanEqual} from "react-icons/fa";
 
-const BottomHeader = () => {
- const [isOpen, setIsopen] = useState(false);
-
- const ToggleSidebar = () => {
-  isOpen === true ? setIsopen(false) : setIsopen(true);
+const BottomHeader = ({setData}) => {
+ const location = useLocation();
+ const filterByCategory = (category) => {
+  const productCat = items.filter((product) => product.category === category);
+  setData(productCat);
  };
+
+ const filterByPrice = (price) => {
+  const priceItem = items.filter((product) => Number([product.price]) >= price);
+  setData(priceItem);
+ };
+ //  const [isOpen, setIsopen] = useState(false);
+
+ //  const ToggleSidebar = () => {
+ //   isOpen === true ? setIsopen(false) : setIsopen(true);
+ //  };
 
  return (
   <>
-   <nav id="main-nav" className="navbar navbar-expand-lg navbar-dark bg-dark p-0">
-    <div className="container p-0">
+   {location.pathname === "/" && (
+    <nav id="main-nav" className="navbar navbar-expand-lg navbar-dark bg-dark p-0">
+     <div className="container">
+      <div className="collapse navbar-collapse p-2" id="navbarSupportedContent">
+       <ul id="main-menu" className="navbar-nav me-auto mb-2 mb-lg-0">
+        <li className="nav-item">
+         <div className="nav-link">Filter By {<FaArrowRight />}</div>
+        </li>
+        <li className="nav-item">
+         <div className="nav-link" onClick={() => setData(items)}>
+          No Filter
+         </div>
+        </li>
+        <li className="nav-item">
+         <div className="nav-link" onClick={() => filterByCategory("tv")}>
+          TV
+         </div>
+        </li>
+        <li className="nav-item">
+         <div className="nav-link" onClick={() => filterByCategory("mobiles")}>
+          Mobile
+         </div>
+        </li>
+        <li className="nav-item">
+         <div className="nav-link" onClick={() => filterByCategory("laptops")}>
+          Laptops
+         </div>
+        </li>
+        <li className="nav-item">
+         <div className="nav-link" onClick={() => filterByCategory("tablets")}>
+          Tablets
+         </div>
+        </li>
+        <li className="nav-item">
+         <div className="nav-link" onClick={() => filterByPrice("5999")}>
+          {<FaGreaterThanEqual />} 5999
+         </div>
+        </li>
+        <li className="nav-item">
+         <div className="nav-link" onClick={() => filterByPrice("19999")}>
+          {<FaGreaterThanEqual />} 19999
+         </div>
+        </li>
+        <li className="nav-item">
+         <div className="nav-link" onClick={() => filterByPrice("39999")}>
+          {<FaGreaterThanEqual />} 39999
+         </div>
+        </li>
+        <li className="nav-item">
+         <div className="nav-link" onClick={() => filterByPrice("59999")}>
+          {<FaGreaterThanEqual />} 59999
+         </div>
+        </li>
+        <li className="nav-item">
+         <div className="nav-link" onClick={() => filterByPrice("79999")}>
+          {<FaGreaterThanEqual />} 79999
+         </div>
+        </li>
+       </ul>
+      </div>
+     </div>
+
+     {/* <div className="container-fluid">
      <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon"></span>
      </button>
@@ -109,10 +182,11 @@ const BottomHeader = () => {
        </li>
       </ul>
      </div>
-    </div>
-   </nav>
+    </div> */}
+    </nav>
+   )}
 
-   <div className={`sidebar ${isOpen === true ? "active" : ""}`}>
+   {/* <div className={`sidebar ${isOpen === true ? "active" : ""}`}>
     <div className="sd-header">
      <div className="hmenu-avatar-icon">
       <FaUser className="nav-sprite" />
@@ -122,7 +196,6 @@ const BottomHeader = () => {
       <FaTimes />
      </div>
     </div>
-
     <div className="sd-body">
      <div className="sidebar-body">
       <div className="sb-item-list">
@@ -237,7 +310,7 @@ const BottomHeader = () => {
 
        <div className="sb-item sb-menu">
         <span className="sb-text">
-        Men's Fashion
+         Men's Fashion
          <span className="sub-arrow">
           <IoIosArrowForward />
          </span>
@@ -269,194 +342,8 @@ const BottomHeader = () => {
       </div>
      </div>
     </div>
-
-    {/* <div className="sd-body">
-     <ul id="sub-menu" className="sm pixelstrap sm-vertical " data-smartmenus-id="1721234445641959">
-      <li className="mega">
-       <a href="/" className="has-submenu" id="sm-1721234445641959-1" aria-haspopup="true" aria-controls="sm-1721234445641959-2" aria-expanded="false">
-        Mobiles, Computers <span className="sub-arrow"><IoIosArrowForward /></span>
-       </a>
-       <ul className="mega-menu vertical-mega-menu sm-nowrap" id="sm-1721234445641959-2" role="group" aria-hidden="true" aria-labelledby="sm-1721234445641959-1" aria-expanded="false">
-        <li>
-         <div className="container">
-          <div className="row">
-           <div className="col-xl-4 mega-box">
-            <div className="link-section">
-             <div className="demo">
-              <div className="menu-title">
-               <h6>electronics</h6>
-              </div>
-              <div className="menu-content">
-               <ul>
-                <li>
-                 <a target="_blank" href="/">
-                  Mobile phones
-                 </a>
-                </li>
-                <li>
-                 <a target="_blank" href="/">
-                  televisions
-                 </a>
-                </li>
-                <li>
-                 <a target="_blank" href="/">
-                  refrigerator
-                 </a>
-                </li>
-                <li>
-                 <a target="_blank" href="/">
-                  audio devices
-                 </a>
-                </li>
-                <li>
-                 <a target="_blank" href="/">
-                  Air Conditioners
-                 </a>
-                </li>
-                <li>
-                 <a target="_blank" href="/">
-                  laptop &amp; PC
-                 </a>
-                </li>
-               </ul>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div className="col-xl-4 mega-box">
-            <div className="link-section">
-             <div className="demo">
-              <div className="menu-title">
-               <h6>mobile</h6>
-              </div>
-              <div className="menu-content">
-               <ul>
-                <li>
-                 <a target="_blank" href="/">
-                  new arrivals
-                 </a>
-                </li>
-                <li>
-                 <a target="_blank" href="/">
-                  best sellter
-                 </a>
-                </li>
-                <li>
-                 <a target="_blank" href="/">
-                  trading
-                 </a>
-                </li>
-                <li>
-                 <a target="_blank" href="/">
-                  pre-order
-                 </a>
-                </li>
-                <li>
-                 <a target="_blank" href="/">
-                  sale
-                 </a>
-                </li>
-               </ul>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div className="col-xl-4 mega-box">
-            <div className="link-section">
-             <div className="demo">
-              <div className="menu-title">
-               <h6>computers</h6>
-              </div>
-              <div className="menu-content">
-               <ul>
-                <li>
-                 <a target="_blank" href="/">
-                  PCs
-                 </a>
-                </li>
-                <li>
-                 <a target="_blank" href="/">
-                  laptop
-                 </a>
-                </li>
-                <li>
-                 <a target="_blank" href="/">
-                  accessories
-                 </a>
-                </li>
-                <li>
-                 <a target="_blank" href="/">
-                  gaming PCs
-                 </a>
-                </li>
-               </ul>
-              </div>
-             </div>
-            </div>
-           </div>
-          </div>
-         </div>
-        </li>
-       </ul>
-       <span className="scroll-up">
-        <span className="scroll-up-arrow"></span>
-       </span>
-       <span className="scroll-down">
-        <span className="scroll-down-arrow"></span>
-       </span>
-      </li>
-      <li>
-       <a href="/" className="has-submenu" id="sm-1721234445641959-3" aria-haspopup="true" aria-controls="sm-1721234445641959-4" aria-expanded="false">
-        Appliances, Electronics<span className="sub-arrow"></span>
-       </a>
-       <ul id="sm-1721234445641959-4" role="group" aria-hidden="true" aria-labelledby="sm-1721234445641959-3" aria-expanded="false" className="sm-nowrap">
-        <li>
-         <a href="/">tvs</a>
-        </li>
-        <li>
-         <a href="/">refrigerator</a>
-        </li>
-        <li>
-         <a href="/">computers</a>
-        </li>
-        <li>
-         <a href="/" className="has-submenu" id="sm-1721234445641959-5" aria-haspopup="true" aria-controls="sm-1721234445641959-6" aria-expanded="false">
-          more<span className="sub-arrow"></span>
-         </a>
-         <ul id="sm-1721234445641959-6" role="group" aria-hidden="true" aria-labelledby="sm-1721234445641959-5" aria-expanded="false">
-          <li>
-           <a href="/">speakers</a>
-          </li>
-          <li>
-           <a href="/">washing</a>
-          </li>
-          <li>
-           <a href="/">laptops</a>
-          </li>
-         </ul>
-        </li>
-       </ul>
-      </li>
-      <li>
-       <a href="/" className="has-submenu" id="sm-1721234445641959-7" aria-haspopup="true" aria-controls="sm-1721234445641959-8" aria-expanded="false">
-        Men's Fashion<span className="sub-arrow"></span>
-       </a>
-       <ul id="sm-1721234445641959-8" role="group" aria-hidden="true" aria-labelledby="sm-1721234445641959-7" aria-expanded="false" className="sm-nowrap">
-        <li>
-         <a href="/">indian wear</a>
-        </li>
-        <li>
-         <a href="/">western wear</a>
-        </li>
-        <li>
-         <a href="/">sports wear</a>
-        </li>
-       </ul>
-      </li>
-     </ul>
-    </div> */}
    </div>
-   <div className={`sidebar-overlay ${isOpen === true ? "active" : ""}`} onClick={ToggleSidebar}></div>
+   <div className={`sidebar-overlay ${isOpen === true ? "active" : ""}`} onClick={ToggleSidebar}></div> */}
   </>
  );
 };
